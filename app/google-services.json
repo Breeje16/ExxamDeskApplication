@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "361009476016",
+    "firebase_url": "https://exxamdesk-app.firebaseio.com",
+    "project_id": "exxamdesk-app",
+    "storage_bucket": "exxamdesk-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361009476016:android:b1e2b50e2b4c1519462675",
+        "android_client_info": {
+          "package_name": "com.breejemodi.exxxamdesk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361009476016-rceroamaa4tem2rhvkloqb5lunckhobe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.breejemodi.exxxamdesk",
+            "certificate_hash": "8f93328a2972e1deaeea1ff40bfeb2fc78e38087"
+          }
+        },
+        {
+          "client_id": "361009476016-egkrn2n5n2jm3j906smtq8vvol122b44.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH3z9FpzdCnGunwczWeXANUZcGBHZq52U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361009476016-egkrn2n5n2jm3j906smtq8vvol122b44.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
