@@ -4,16 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +27,17 @@ public class QuestionsActivity extends AppCompatActivity {
 
     private TextView question,noindicator;
     private LinearLayout optionscontainer;
-    private Button sharebtn,nextbtn;
+    private Button nextbtn;
+    private TextView sharebtn;
     private int count=0;
     private List<QuestionModel> list;
     private int position =0;
     private int score = 0;
+
+    private static final String FILE_NAME = "response.txt";
+    private String ans;
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +89,34 @@ public class QuestionsActivity extends AppCompatActivity {
                 playAnim(question,0,list.get(position).getQuestion());
             }
         });
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                try {
+                    new CountDownTimer(300000, 1000) {
+
+                        public void onTick(long millisUntilFinished) {
+                            sharebtn.setText("Time Left: " + millisUntilFinished / 1000);
+                        }
+
+                        public void onFinish() {
+                            sharebtn.setText("Done!");
+                            Intent scoreIntent = new Intent(QuestionsActivity.this,ScoreActivity.class);
+                            scoreIntent.putExtra("score",score);
+                            scoreIntent.putExtra("total",list.size());
+                            startActivity(scoreIntent);
+                            finish();
+
+                        }
+                    }.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+    }).start();
+
+
     }
     private void playAnim(final View view, final int value, final String data){
         view.animate().alpha(value).scaleX(value).scaleY(value).setDuration(500).setStartDelay(100).setInterpolator(new DecelerateInterpolator()).setListener(new Animator.AnimatorListener() {
@@ -133,6 +173,31 @@ public class QuestionsActivity extends AppCompatActivity {
         enableOption(false);
         nextbtn.setEnabled(true);
         nextbtn.setAlpha(1);
+        ans = selectedOption.getText().toString();
+
+        //Storing Response to File:
+
+        FileOutputStream fos = null;
+
+        try {
+
+            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            fos.write(ans.getBytes());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(fos != null){
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         if (selectedOption.getText().toString().equals(list.get(position).getCorrectANS())){
             //correct
             score++;
@@ -145,6 +210,8 @@ public class QuestionsActivity extends AppCompatActivity {
             correctoption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4CAF50")));
         }
     }
+
+
     private void enableOption(boolean enable){
         for(int i=0;i<4;i++){
             optionscontainer.getChildAt(i).setEnabled(enable);
