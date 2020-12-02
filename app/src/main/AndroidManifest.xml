@@ -2,20 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.breejemodi.exxxamdesk">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/edlogosquare"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/edlogosquare"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
-
+        <activity android:name=".ClassroomActivity"></activity>
+        <activity android:name=".SetsActivity" />
+        <activity android:name=".ScoreActivity" />
+        <activity android:name=".QuestionsActivity" />
+        <activity android:name=".CategoriesActivity" />
+        <activity android:name=".registration.RegistrationActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/MainTheme" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
